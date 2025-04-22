@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --fade-timeout: 0.25s;
+}
+
+@font-face {
+  font-family: "Melon Camp";
+  src: url("/Melon Camp.ttf");
+}
+
+html {
+  font-family: "Melon Camp";
+}
+
+@utility user-drag-none {
+  user-select: none;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+}
+
+svg > * {
+  stroke: currentColor;
+}
+
+.noScrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.noScrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar {
+  scroll-behavior: smooth;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--color-gray-200);
+  transition-duration: 150ms;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+&:where(.dark, .dark *) {
+  .scrollbar::-webkit-scrollbar-thumb {
+    transition-duration: 150ms;
+    background-color: var(--color-gray-700);
+  }
+}

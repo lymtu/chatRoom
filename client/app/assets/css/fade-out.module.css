@@ -1,0 +1,31 @@
+@keyframes fade-out-to-right-top {
+  0% {
+    opacity: 1;
+    transform: translate(0);
+    -webkit-transform: translate(0);
+    -moz-transform: translate(0);
+    -ms-transform: translate(0);
+    -o-transform: translate(0);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translate(10px, -10px) scale(0.9, 0.5);
+    -webkit-transform: translate(10px, -10px) scale(0.9, 0.5);
+    -moz-transform: translate(10px, -10px) scale(0.9, 0.5);
+    -ms-transform: translate(10px, -10px) scale(0.9, 0.5);
+    -o-transform: translate(10px, -10px) scale(0.9, 0.5);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(20px, -20px) scale(0.8, 0.2);
+    -webkit-transform: translate(20px, -20px) scale(0.8, 0.2);
+    -moz-transform: translate(20px, -20px) scale(0.8, 0.2);
+    -ms-transform: translate(20px, -20px) scale(0.8, 0.2);
+    -o-transform: translate(20px, -20px) scale(0.8, 0.2);
+  }
+}
+
+.fade-out-to-right-top {
+  animation: fade-out-to-right-top var(--fade-timeout) ease-in;
+  -webkit-animation: fade-out-to-right-top var(--fade-timeout) ease-in;
+}
