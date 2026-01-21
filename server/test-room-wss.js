@@ -1,9 +1,10 @@
+const express = require("express");
 const { WebSocket, WebSocketServer } = require("ws");
 
-const port = 3000;
+const port = 2999;
 const host = "localhost";
 
-const Whitelist = ["http://127.0.0.1:5500", "http://localhost:5173"];
+const Whitelist = ["http://localhost:3000"];
 
 const wss = new WebSocketServer({ port });
 

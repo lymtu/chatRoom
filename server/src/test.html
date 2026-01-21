@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <title></title>
+    <style>
+      * {
+        /* 初始化 */
+        padding: 0px;
+        margin: 0px;
+        box-sizing: border-box;
+        /*滚动条动画*/
+        scroll-behavior: smooth;
+      }
+    </style>
+  </head>
+
+  <body>
+    <form action="">
+      <input type="text" name="" required id="input" />
+      <button type="submit">发送</button>
+    </form>
+    <div id="container"></div>
+  </body>
+
+  <script>
+    let ws = new WebSocket("ws://localhost:2999/ws?token=123456");
+    let tryCount = 3;
+    let timeout = null;
+    let lastPongTimestamp = null;
+
+    const ping = () => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+      timeout = setTimeout(() => {
+        ws.send(
+          JSON.stringify({
+            type: "ping",
+            timestamp: Date.now(),
+            message: "ping",
+          })
+        );
+        ping();
+      }, 2000);
+    };
+
+    ws.onclose = (ws, ev) => {
+      console.log("连接关闭");
+      clearTimeout(timeout);
+    };
+
+    ws.onerror = (ws, ev) => {
+      console.log("连接错误");
+      clearTimeout(timeout);
+
+      if (tryCount > 0) {
+        ws = new WebSocket("ws://localhost:2999/ws?token=123456");
+        tryCount--;
+      }
+    };
+
+    ws.onopen = (ws, ev) => {
+      console.log("连接成功");
+      try {
+        ping();
+      } catch (error) {
+        console.log(error);
+        clearTimeout(timeout);
+      }
+    };
+
+    ws.onmessage = (ws, ev) => {
+      const json = JSON.parse(ws.data);
+      if (json.type === "pong") {
+        lastPongTimestamp = json.timestamp;
+        return;
+      }
+
+      if (json.type === "json") {
+        window.container.innerHTML += JSON.stringify(json, null, 2);
+      }
+    };
+
+    document.querySelector("form").addEventListener("submit", (ev) => {
+      ev.preventDefault();
+      const input = document.querySelector("#input");
+      ws.send(
+        JSON.stringify({
+          type: "text",
+          message: input.value,
+          timestamp: Date.now(),
+        })
+      );
+      input.value = "";
+    });
+  </script>
+</html>

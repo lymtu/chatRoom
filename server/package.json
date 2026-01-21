@@ -1,15 +1,19 @@
 {
   "name": "server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "test-room-wss.js",
+  "private": true,
   "scripts": {
-    "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "bun run --watch src/index.ts"
   },
-  "author": "",
-  "license": "ISC",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "^25.0.3",
+    "tsx": "^4.21.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.9.3"
+  },
   "dependencies": {
-    "ws": "^8.18.1"
+    "@elysiajs/node": "^1.4.2",
+    "elysia": "^1.4.19"
   }
 }
